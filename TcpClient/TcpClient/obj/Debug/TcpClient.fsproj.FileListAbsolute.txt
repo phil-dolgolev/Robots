@@ -1,0 +1,8 @@
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\bin\Debug\TCPCl.exe.config
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\bin\Debug\TCPCl.XML
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\bin\Debug\TCPCl.exe
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\bin\Debug\TCPCl.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\bin\Debug\FSharp.Core.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\bin\Debug\FSharp.Core.xml
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\obj\Debug\TCPCl.exe
+C:\Users\Филипп\SkyDrive\Git\Robots\TcpClient\TcpClient\obj\Debug\TCPCl.pdb

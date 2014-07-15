@@ -1,0 +1,14 @@
+C:\Users\Филипп\SkyDrive\Git\TCPServ\AsyncUdpServ\bin\Debug\AsyncUdpServ.XML
+C:\Users\Филипп\SkyDrive\Git\TCPServ\AsyncUdpServ\bin\Debug\AsyncUdpServ.dll
+C:\Users\Филипп\SkyDrive\Git\TCPServ\AsyncUdpServ\bin\Debug\AsyncUdpServ.pdb
+C:\Users\Филипп\SkyDrive\Git\TCPServ\AsyncUdpServ\bin\Debug\FSharp.Core.dll
+C:\Users\Филипп\SkyDrive\Git\TCPServ\AsyncUdpServ\bin\Debug\FSharp.Core.xml
+C:\Users\Филипп\SkyDrive\Git\TCPServ\AsyncUdpServ\obj\Debug\AsyncUdpServ.dll
+C:\Users\Филипп\SkyDrive\Git\TCPServ\AsyncUdpServ\obj\Debug\AsyncUdpServ.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\AsyncUdpServ.XML
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\AsyncUdpServ.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\AsyncUdpServ.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\FSharp.Core.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\FSharp.Core.xml
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\obj\Debug\AsyncUdpServ.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\obj\Debug\AsyncUdpServ.pdb
