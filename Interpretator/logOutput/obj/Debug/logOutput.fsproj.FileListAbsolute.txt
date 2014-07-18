@@ -1,0 +1,7 @@
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\logOutput\bin\Debug\logOutput.XML
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\logOutput\bin\Debug\logOutput.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\logOutput\bin\Debug\logOutput.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\logOutput\bin\Debug\FSharp.Core.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\logOutput\bin\Debug\FSharp.Core.xml
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\logOutput\obj\Debug\logOutput.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\logOutput\obj\Debug\logOutput.pdb

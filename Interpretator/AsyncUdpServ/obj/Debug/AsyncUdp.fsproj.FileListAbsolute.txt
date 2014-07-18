@@ -12,3 +12,7 @@ C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\F
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\FSharp.Core.xml
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\obj\Debug\AsyncUdpServ.dll
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\obj\Debug\AsyncUdpServ.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\logOutput.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\logOutput.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\bin\Debug\logOutput.xml
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncUdpServ\obj\Debug\AsyncUdp.fsprojResolveAssemblyReference.cache

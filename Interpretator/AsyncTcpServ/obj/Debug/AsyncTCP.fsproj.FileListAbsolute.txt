@@ -32,6 +32,9 @@ C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\bin\Debug\S
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\bin\Debug\System.Reactive.Interfaces.xml
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\bin\Debug\System.Reactive.Linq.xml
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\bin\Debug\System.Reactive.PlatformServices.xml
-C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\obj\Debug\AsyncTCP.fsprojResolveAssemblyReference.cache
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\obj\Debug\TCPServ.dll
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\obj\Debug\TCPServ.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\bin\Debug\logOutput.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\bin\Debug\logOutput.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\bin\Debug\logOutput.xml
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\AsyncTcpServ\obj\Debug\AsyncTcp.fsprojResolveAssemblyReference.cache

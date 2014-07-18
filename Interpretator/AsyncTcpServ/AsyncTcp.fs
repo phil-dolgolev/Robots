@@ -5,12 +5,13 @@ open System.Net
 open System.Net.Sockets
 open System.Net.NetworkInformation
 open System.Text
+open Debug.logOutput
 
 type AsyncTcpServer(?port) =
     let port = defaultArg port 2000
 
-//    let obs_src = new Event<sbyte[]>()
-    let obs_src = new Event<byte[]>()
+    let obs_src = new Event<sbyte[]>()
+
     let obs = obs_src.Publish
     let obsNext = obs_src.Trigger
 
@@ -21,82 +22,78 @@ type AsyncTcpServer(?port) =
 
 
     let mutable working = false
-    let mutable messageBuf = Array.create 1024 (byte 0)
+    let messageBuf = Array.zeroCreate 1024
 
     let mutable (listener: TcpListener option) = None
     let mutable (ip: IPAddress option) = None
 
     let handleRequest (req: byte[]) = 
-        //printfn "%A" req.Length
-//        if req.[4] = byte 48 then let handeledRequest = [|sbyte req.[0]; 
-//                                                          sbyte req.[1]; 
-//                                                          sbyte req.[2]; 
-//                                                          sbyte req.[3]|]
-//                                  handeledRequest |> obsNext
-//        else printfn "Warning! Unknown command"
-        [|req.[0]; req.[1]|] |> obsNext
+        debugWrite "handleRequest"
+        let handeledRequest = Array.map sbyte req.[0..3]
+        handeledRequest |> obsNext
 
 
     let rec clientLoop(client: TcpClient) = async {
-        //printfn "ClientLoop"
         if client.Connected then
             try
                 let! count = client.GetStream().AsyncRead(messageBuf, 0, messageBuf.Length)
-                messageBuf |> handleRequest 
-                return! clientLoop(client)
+                messageBuf |> handleRequest
+                if count <> 0 then 
+                    return! clientLoop(client)
+                else connectionStatusChanged false
             with
-                | _ -> printfn "EXCEPTION in AsyncRead"
-                       client.Close()
-                       connectionStatusChanged false
-                       printfn "connection false"
-            else connectionStatusChanged false
+                | _  ->     debugWrite "EXCEPTION in AsyncRead"
+                            client.Close()
+                            connectionStatusChanged false
+                            debugWrite "connection false"
+        else debugWrite "ELSE"
+             connectionStatusChanged false
                  
-                       
     }
 
     let server = async {
-        printfn "ip address %A" (ip.Value.GetAddressBytes())
+        debugWrite "ip address %A" (ip.Value.GetAddressBytes())
         listener.Value.Start()
         let rec loop() = async {
-            let client = listener.Value.AcceptTcpClient()
-            connectionStatusChanged true
-            printfn "connection true"
-            printfn "%s" "new connection established"
             try
-                printfn "if working..."
+                let client = listener.Value.AcceptTcpClient()
+                connectionStatusChanged true
+                debugWrite "connection true"
+                debugWrite "%s" "new connection established"
+                debugWrite "if working..."
                 if working then Async.Start(clientLoop client) else client.Close()
-            with
-                |_ -> listener.Value.Stop(); new AsyncTcpServer(port) |> ignore; printfn"Exception in loop"// проверить на необходимость
-
-            return! loop()
+                return! loop()
+            with |_ -> debugWrite "EXCEPTION IN SERVER"
         }
         Async.Start( loop() )
     }
         
-    do printfn "%s" "TCP server initial"
+    do debugWrite "%s" "TCP server initial"
+    do connectionStatusChanged false
 
 
-    member val Observable = obs.DistinctUntilChanged()
-    member val ConnectionStatus = connectionStatus.DistinctUntilChanged()
+    member this.ToObservable() = obs
+    member val ConnectionStatus = connectionStatus
 
     member this.serverStart() = match listener with
-                                    | None -> printfn "TCP start"
+                                    | None -> debugWrite "TCP start"
                                               working <- true
                                               ip <- Some (Dns.GetHostAddresses(Dns.GetHostName()).[0])
+//                                              ip <- Some (IPAddress.Parse "127.0.0.1") // отладка на компе
                                               listener <- Some (new TcpListener(ip.Value, port))
                                               Async.Start( server )
                                               
-                                    | Some _ -> printfn "TCP alredy started"
+                                    | Some _ -> debugWrite "TCP alredy started"
                                                 ()
 
     member this.serverStop() = match listener with
-                                    | None -> printfn"TCP already stoped"
+                                    | None -> debugWrite"TCP already stoped"
                                               ()
-                                    | Some serv -> printfn "TCP begining stop"
+                                    | Some serv -> debugWrite "TCP begining stop"
                                                    working <- false
                                                    listener.Value.Stop()
                                                    listener <- None
-                                                   printfn "TCP successfully stoped"
+                                                   debugWrite "TCP successfully stoped"
 
     interface IDisposable with
         member x.Dispose() = working <- false

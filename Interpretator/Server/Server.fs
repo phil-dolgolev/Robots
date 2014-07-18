@@ -3,6 +3,7 @@ open System.Reactive.Linq
 open System
 open AsyncUdp
 open AsyncTcp
+open Debug.logOutput
 
 type Server(?udpIpMask, ?portForUdp, ?portForTcp) = 
 
@@ -13,15 +14,17 @@ type Server(?udpIpMask, ?portForUdp, ?portForTcp) =
     let TCPserver = new AsyncTcpServer(portForTcp)
 
     let handler x =
-        printfn "handler"
+        debugWrite "%s" "handler"
         if x then UDPserver.ServerStop()
-        else UDPserver.ServerStart()
+        else TCPserver.serverStop()
+             TCPserver.serverStart()
+             UDPserver.ServerStart()
 
-    do TCPserver.ConnectionStatus.Subscribe ( handler ) |> ignore
-    do UDPserver.ServerStart()
-    do TCPserver.serverStart()
+    do TCPserver.ConnectionStatus.Add ( handler )
+       UDPserver.ServerStart()
+       TCPserver.serverStart()
     
-    member val Observable = TCPserver.Observable
+    member x.ToObservable() = TCPserver.ToObservable()
 
     interface IDisposable with
         member x.Dispose() = ()

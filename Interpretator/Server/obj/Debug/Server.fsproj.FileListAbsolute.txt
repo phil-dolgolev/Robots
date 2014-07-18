@@ -42,3 +42,6 @@ C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Server\bin\Debug\System.
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Server\bin\Debug\System.Reactive.Interfaces.xml
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Server\bin\Debug\System.Reactive.Linq.xml
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Server\bin\Debug\System.Reactive.PlatformServices.xml
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Server\bin\Debug\logOutput.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Server\bin\Debug\logOutput.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Server\bin\Debug\logOutput.xml

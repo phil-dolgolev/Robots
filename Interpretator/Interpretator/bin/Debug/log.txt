@@ -1,0 +1,6 @@
+TCP server initial
+ UDP start
+TCP start
+waiting message by UDP
+ip address [|254uy; 128uy; 0uy; 0uy; 0uy; 0uy; 0uy; 0uy; 253uy; 65uy; 27uy; 118uy; 122uy;
+  55uy; 28uy; 127uy|]

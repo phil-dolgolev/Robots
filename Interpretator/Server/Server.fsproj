@@ -73,6 +73,11 @@
       <Project>{ed2c450b-2924-41df-9feb-a39260747db4}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\logOutput\logOutput.fsproj">
+      <Name>logOutput</Name>
+      <Project>{2fe9920e-8a7e-4fbc-8471-16e5884841ac}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

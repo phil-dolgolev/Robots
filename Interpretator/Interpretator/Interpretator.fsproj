@@ -51,6 +51,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\logOutput\logOutput.fsproj">
+      <Name>logOutput</Name>
+      <Project>{2fe9920e-8a7e-4fbc-8471-16e5884841ac}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Server\Server.fsproj">
       <Name>Server</Name>
       <Project>{2b308e20-73db-4b06-93dd-0fdfabee18a8}</Project>

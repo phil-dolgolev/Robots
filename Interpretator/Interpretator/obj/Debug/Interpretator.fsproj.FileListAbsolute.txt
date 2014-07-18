@@ -2,7 +2,6 @@ C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\obj\Debug\Interpret.exe
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\obj\Debug\Interpret.pdb
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\obj\Debug\Interpretator.fsprojResolveAssemblyReference.cache
-C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\obj\Debug\Interpretator.fsproj.Interpret.exe.config
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\Interpret.exe.config
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\Interpret.exe
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\Interpret.pdb
@@ -25,3 +24,6 @@ C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\System.Reactive.Core.xml
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\System.Reactive.Linq.xml
 C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\System.Reactive.Interfaces.xml
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\logOutput.dll
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\logOutput.pdb
+C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\bin\Debug\logOutput.xml
