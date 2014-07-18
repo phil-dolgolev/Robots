@@ -5,8 +5,9 @@ open Server
 open Debug.logOutput
 
 module interpret = 
-    let maxPositionOfKicker = 100
-    let minPositionOfKicker = -100
+    let maxPositionOfKicker = -100
+    let minPositionOfKicker = 100
+    let stop = 0
     type Interpretator() =
         let model = new Model()
         let motor1 = model.Motor.["JM1"]
@@ -14,9 +15,13 @@ module interpret =
         let servo1 = model.Servo.["JE1"]
         let led = model.Led
         // скорее всего надо добавить задержку
-        let kick() =
+        let kick() = async {
             servo1.SetPower ( maxPositionOfKicker )
+            System.Threading.Thread.Sleep 300
             servo1.SetPower (minPositionOfKicker)
+            System.Threading.Thread.Sleep 300
+            servo1.Zero()
+            }
 
         let setColor color =
             match color with
@@ -30,11 +35,9 @@ module interpret =
 
         let interpret(command: sbyte[])=
             debugWrite "Interpret"
-            //printfn "set power on JM1 %A" command.[0]
             motor1.SetPower (int command.[0])
-            //printfn "set power on JM2 %A" command.[1]
             motor2.SetPower (int command.[1])
-            if command.[2] = 1y then kick()
+            if command.[2] = 1y then Async.Start ( kick() )
                 else ()
             setColor command.[3]
 
@@ -45,35 +48,18 @@ module interpret =
         interface IDisposable with
             member this.Dispose() = (model :> IDisposable).Dispose()
     
-    
-// Special for Nastya                            
-//    type Interpretator() =
-//        let model = new Model()
-//        let motorLeft = model.Motor.["JM1"]
-//        let motorRight = model.Motor.["JM2"]
-//        let interpret(command: byte[]) =
-//            //printfn "%A %A" command.[0] command.[1]
-//            if command.[0] = 1uy then motorLeft.SetPower (int command.[1])
-//            elif command.[0] = 2uy then motorRight.SetPower (int command.[1])
-//            else motorLeft.SetPower 0
-//                 motorRight.SetPower 0
-//
-//        member this.Start(events(*: IEvent<byte[]>*): IObservable<byte[]>) =
-//            events.Subscribe interpret
-
 
     [<EntryPoint>]
 
     let main _ = 
         try
             Helpers.I2C.Init "/dev/i2c-2" 0x48 1
-    //        debugWrite "%d" 1024
 
             use server = new Server("192.168.1.255", 3000, 2000) 
-    //
+
             let interpr = new Interpretator()
             use sbs = interpr.Start (server.ToObservable())
-
+            debugWrite "interpretator started"
             Console.ReadKey() |> ignore
         with | _ as b -> debugWrite "EXCEPTION IN MAIN %A" b
         0

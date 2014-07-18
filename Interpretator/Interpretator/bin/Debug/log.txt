@@ -2,5 +2,25 @@ TCP server initial
  UDP start
 TCP start
 waiting message by UDP
+TCP server initial
+ UDP start
+TCP start
+waiting message by UDP
+Server start with [|254uy; 128uy; 0uy; 0uy; 0uy; 0uy; 0uy; 0uy; 253uy; 65uy; 27uy; 118uy; 122uy;
+  55uy; 28uy; 127uy|] ip
+Async.Start( server )
+Waiting ip address...
 ip address [|254uy; 128uy; 0uy; 0uy; 0uy; 0uy; 0uy; 0uy; 253uy; 65uy; 27uy; 118uy; 122uy;
   55uy; 28uy; 127uy|]
+EXCEPTION IN MAIN System.IO.DirectoryNotFoundException: Не удалось найти часть пути "C:\sys\class\gpio\gpio62\value".
+   в System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   в System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   в System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   в System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   в System.IO.File.WriteAllText(String path, String contents)
+   в <StartupCode$Trik-Core>.$Model.motorInit@57.Invoke(Unit unitVar0) в C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\trik-sharp\Source\Model.fs:строка 57
+   в Trik.Model.get_Motor() в C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\trik-sharp\Source\Model.fs:строка 68
+   в Interpretator.interpret.Interpretator..ctor() в C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\Interpretator.fs:строка 12
+   в Interpretator.interpret.main(String[] _arg1) в C:\Users\Филипп\SkyDrive\Git\Robots\Interpretator\Interpretator\Interpretator.fs:строка 57

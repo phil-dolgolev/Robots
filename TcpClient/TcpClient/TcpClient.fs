@@ -5,6 +5,8 @@ open System.Text
 open System.Collections.Generic
 
 type TCPClient(?ipAddr, ?port) =
+    let parse (str: string) : byte[] =
+       str.Split(';') |> Array.map Byte.Parse 
     let port = defaultArg port 2000
     let ipAddr = defaultArg ipAddr "192.168.1.1"
     let mutable working = false
@@ -16,7 +18,9 @@ type TCPClient(?ipAddr, ?port) =
             if ((String.Compare (command',"exit" )) = 0 )
             then sender.Close(); working <- false
             else
-                 let command = Encoding.ASCII.GetBytes (command')  
+                 //let command = Encoding.ASCII.GetBytes (command')  
+                 let command = command' |> parse
+                 printfn "%A" command
                  sender.GetStream().Write(command, 0, command.Length)
             client ()
 

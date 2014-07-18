@@ -8,6 +8,7 @@ open System.Text
 open Debug.logOutput
 
 type AsyncTcpServer(?port) =
+    let messageBufSize = 1024
     let port = defaultArg port 2000
 
     let obs_src = new Event<sbyte[]>()
@@ -22,7 +23,7 @@ type AsyncTcpServer(?port) =
 
 
     let mutable working = false
-    let messageBuf = Array.zeroCreate 1024
+    let messageBuf = Array.zeroCreate messageBufSize
 
     let mutable (listener: TcpListener option) = None
     let mutable (ip: IPAddress option) = None
@@ -52,6 +53,7 @@ type AsyncTcpServer(?port) =
     }
 
     let server = async {
+        debugWrite "Waiting ip address..."
         debugWrite "ip address %A" (ip.Value.GetAddressBytes())
         listener.Value.Start()
         let rec loop() = async {
@@ -60,7 +62,6 @@ type AsyncTcpServer(?port) =
                 connectionStatusChanged true
                 debugWrite "connection true"
                 debugWrite "%s" "new connection established"
-                debugWrite "if working..."
                 if working then Async.Start(clientLoop client) else client.Close()
                 return! loop()
             with |_ -> debugWrite "EXCEPTION IN SERVER"
@@ -79,9 +80,11 @@ type AsyncTcpServer(?port) =
                                     | None -> debugWrite "TCP start"
                                               working <- true
                                               ip <- Some (Dns.GetHostAddresses(Dns.GetHostName()).[0])
+                                              debugWrite "Server start with %A ip" (ip.Value.GetAddressBytes() )
 //                                              ip <- Some (IPAddress.Parse "127.0.0.1") // отладка на компе
                                               listener <- Some (new TcpListener(ip.Value, port))
                                               Async.Start( server )
+                                              debugWrite "Async.Start( server )"
                                               
                                     | Some _ -> debugWrite "TCP alredy started"
                                                 ()
@@ -93,6 +96,8 @@ type AsyncTcpServer(?port) =
                                                    working <- false
                                                    listener.Value.Stop()
                                                    listener <- None
+                                                   let stopMachine = Array.zeroCreate messageBufSize
+                                                   stopMachine |> obsNext
                                                    debugWrite "TCP successfully stoped"
 
     interface IDisposable with
