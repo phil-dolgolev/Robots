@@ -3,19 +3,22 @@
 open System
 open System.IO
 
-type debugMode =
+type debugModes =
         | File
         | Console
         | FileAndConsole
 
 let outputFile = "/home/root/log.txt"
-let private parameter = Some Console
+
+let debugMode = Some FileAndConsole
 let private monitor = new Object()
-let fileWriter = new IO.StreamWriter(outputFile) //File.Create(outputFile)
+
+let fileWriter = new IO.StreamWriter(outputFile) 
 fileWriter.AutoFlush <- true
+
 let debugWrite format = 
     let debugWrite' format =
-        match parameter with
+        match debugMode with
         | Some Console -> Printf.kprintf (fun x ->  lock monitor (fun () -> System.Console.WriteLine x)
                                          ) format
         | Some File -> Printf.kprintf (fun x -> lock monitor (fun () -> fileWriter.WriteLine x )
@@ -24,6 +27,7 @@ let debugWrite format =
                                                                                   Console.WriteLine x 
                                                                                   )
                                                ) format
+
                                                  
 
         | None -> Printf.kprintf (fun x -> () ) format

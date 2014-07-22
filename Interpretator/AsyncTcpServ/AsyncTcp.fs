@@ -29,7 +29,7 @@ type AsyncTcpServer(?port) =
     let mutable (ip: IPAddress option) = None
 
     let handleRequest (req: byte[]) = 
-        debugWrite "handleRequest"
+        //debugWrite "handleRequest"
         let handeledRequest = Array.map sbyte req.[0..3]
         handeledRequest |> obsNext
 
@@ -39,26 +39,29 @@ type AsyncTcpServer(?port) =
             try
                 let! count = client.GetStream().AsyncRead(messageBuf, 0, messageBuf.Length)
                 messageBuf |> handleRequest
+
                 if count <> 0 then 
                     return! clientLoop(client)
                 else connectionStatusChanged false
+
             with
                 | _  ->     debugWrite "EXCEPTION in AsyncRead"
                             client.Close()
                             connectionStatusChanged false
                             debugWrite "connection false"
+
         else debugWrite "ELSE"
              connectionStatusChanged false
                  
     }
 
     let server = async {
-        debugWrite "Waiting ip address..."
+
         debugWrite "ip address %A" (ip.Value.GetAddressBytes())
         listener.Value.Start()
         let rec loop() = async {
             try
-                let client = listener.Value.AcceptTcpClient()
+                use client = listener.Value.AcceptTcpClient() // поменял let на use
                 connectionStatusChanged true
                 debugWrite "connection true"
                 debugWrite "%s" "new connection established"
@@ -82,6 +85,7 @@ type AsyncTcpServer(?port) =
                                               ip <- Some (Dns.GetHostAddresses(Dns.GetHostName()).[0])
                                               debugWrite "Server start with %A ip" (ip.Value.GetAddressBytes() )
 //                                              ip <- Some (IPAddress.Parse "127.0.0.1") // отладка на компе
+//                                              так же нужно отключить интерпретатор 
                                               listener <- Some (new TcpListener(ip.Value, port))
                                               Async.Start( server )
                                               debugWrite "Async.Start( server )"

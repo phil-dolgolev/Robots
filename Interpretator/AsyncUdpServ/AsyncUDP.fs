@@ -11,6 +11,7 @@ type AsyncUdpServer(ip, port) =
 
     let requestIP = "requestIP"
 
+
     let mutable messageBuf = Array.zeroCreate 1024
     let mutable working = false
 
@@ -25,7 +26,7 @@ type AsyncUdpServer(ip, port) =
 
     let GetMessage() =
         try
-        messageBuf <- Udp.Value.Receive(ref listenerEndPoint)
+            messageBuf <- Udp.Value.Receive(ref listenerEndPoint)
         with | _  -> debugWrite "%s" "Recieve break by close, nothing serious" 
         // вылетает эксепшн, из-за того что в другом потоке закрывается UDPClient, можно списать на косяк архитектуры
         // но на работоспособность не влияет
@@ -60,7 +61,7 @@ type AsyncUdpServer(ip, port) =
                                     ()
 
     member x.ServerStop() =  match Udp with
-                             | None -> debugWrite "useless trying stop server"
+                             | None -> debugWrite "useless trying stop UDP server"
                              | Some server -> debugWrite "UDP begin stoped"
                                               working <- false
                                               try

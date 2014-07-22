@@ -14,7 +14,7 @@ type Server(?udpIpMask, ?portForUdp, ?portForTcp) =
     let TCPserver = new AsyncTcpServer(portForTcp)
 
     let handler x =
-        debugWrite "%s" "handler"
+
         if x then UDPserver.ServerStop()
         else TCPserver.serverStop()
              TCPserver.serverStart()
@@ -27,4 +27,6 @@ type Server(?udpIpMask, ?portForUdp, ?portForTcp) =
     member x.ToObservable() = TCPserver.ToObservable()
 
     interface IDisposable with
-        member x.Dispose() = ()
+        member x.Dispose() = 
+            (UDPserver:>IDisposable).Dispose()
+            (TCPserver:>IDisposable).Dispose()
