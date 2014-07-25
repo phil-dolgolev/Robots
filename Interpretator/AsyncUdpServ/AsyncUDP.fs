@@ -47,7 +47,12 @@ type AsyncUdpServer(ip, port) =
                         let msg = GetMessage()
                         debugWrite "%s recieved by UDP" msg
                         testst true
-                        if (String.Compare(msg, requestIP, true) = 0) then sendMacAndIp()
+                        if (String.Compare(msg, requestIP, true) = 0) then 
+                            try
+                                sendMacAndIp()
+                            with
+                            | _ -> printfn"EXCEPTION IN sendMacAndIp()" 
+                            // вроде как пытается отослать когда вырубили уже UDP, пофиксить в будущем
                         else ()
                         return! loop()
     }
