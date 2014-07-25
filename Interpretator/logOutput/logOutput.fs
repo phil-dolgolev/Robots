@@ -35,12 +35,3 @@ let debugWrite format =
         debugWrite' format
     with
     | _ as b -> Printf.kprintf (fun x -> File.AppendAllText("log2.txt", "EXCEPTION IN debugWrite" + b.ToString())) format
-
-
-// Ниже черновики
-
-                    
-
-//Printf.
-//
-//let debugWrite' x = x |> box |> Unchecked.unbox  

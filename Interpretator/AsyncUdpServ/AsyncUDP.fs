@@ -18,9 +18,6 @@ type AsyncUdpServer(ip, port) =
     let listenerEndPoint = new IPEndPoint(IPAddress.Any, port)
     let senderEndPoint = new IPEndPoint(IPAddress.Parse ip, port)
 
-    let test_src = new Event<bool>()
-    let test = test_src.Publish
-    let testst = test_src.Trigger
     
     let mutable (Udp : UdpClient option) =  None  
 
@@ -45,8 +42,8 @@ type AsyncUdpServer(ip, port) =
         if working then 
                         debugWrite "waiting message by UDP"
                         let msg = GetMessage()
-                        debugWrite "%s recieved by UDP" msg
-                        testst true
+                        if (msg.Length > 0) then debugWrite "%s recieved by UDP" msg
+
                         if (String.Compare(msg, requestIP, true) = 0) then 
                             try
                                 sendMacAndIp()
@@ -58,7 +55,7 @@ type AsyncUdpServer(ip, port) =
     }
         
     member x.ServerStart() = match Udp with
-                             | None -> debugWrite " UDP start"
+                             | None -> debugWrite "UDP start"
                                        Udp <- Some (new UdpClient(port))
                                        working <- true
                                        Async.Start( loop() )
@@ -67,7 +64,7 @@ type AsyncUdpServer(ip, port) =
 
     member x.ServerStop() =  match Udp with
                              | None -> debugWrite "useless trying stop UDP server"
-                             | Some server -> debugWrite "UDP begin stoped"
+                             | Some server -> debugWrite "UDP begin stoped..."
                                               working <- false
                                               try
                                                 server.Close()
@@ -75,7 +72,6 @@ type AsyncUdpServer(ip, port) =
                                                 | _ -> debugWrite "EXCEPTION in UdpClient.Close()"
                                               Udp <- None
                                               debugWrite "UDP successfully stoped"
-    member val obs = test
                            
     interface IDisposable with
         member x.Dispose() = working <- false

@@ -57,7 +57,6 @@ type AsyncTcpServer(?port) =
 
     let server = async {
 
-        debugWrite "ip address %A" (ip.Value.GetAddressBytes())
         listener.Value.Start()
         let rec loop() = async {
             try
@@ -80,15 +79,14 @@ type AsyncTcpServer(?port) =
     member val ConnectionStatus = connectionStatus
 
     member this.serverStart() = match listener with
-                                    | None -> debugWrite "TCP start"
+                                    | None -> debugWrite "TCP begin start..."
                                               working <- true
                                               ip <- Some (Dns.GetHostAddresses(Dns.GetHostName()).[0])
-                                              debugWrite "Server start with %A ip" (ip.Value.GetAddressBytes() )
+                                              debugWrite "Server start with %A ip..." (ip.Value.GetAddressBytes() )
 //                                              ip <- Some (IPAddress.Parse "127.0.0.1") // отладка на компе
 //                                              так же нужно отключить интерпретатор 
                                               listener <- Some (new TcpListener(ip.Value, port))
                                               Async.Start( server )
-                                              debugWrite "Async.Start( server )"
                                               
                                     | Some _ -> debugWrite "TCP alredy started"
                                                 ()
@@ -96,7 +94,7 @@ type AsyncTcpServer(?port) =
     member this.serverStop() = match listener with
                                     | None -> debugWrite"TCP already stoped"
                                               ()
-                                    | Some serv -> debugWrite "TCP begining stop"
+                                    | Some serv -> debugWrite "TCP begining stop..."
                                                    working <- false
                                                    listener.Value.Stop()
                                                    listener <- None
