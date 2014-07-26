@@ -1,13 +1,4 @@
-1) Пояснение к решениям
-BroadcastListener - приложение для отладки, слушает указанный широковещательный адрес по UDP
-(обычно это или 192.168.1.255 или 192.168.0.255)
-Interpretator - основное приложение, которое запускается на контроллере TRIK
-Подробнее ниже
-TcpClient - приложение для отладки, отправляет команды по TCP на TRIK
-UDPBroadcast - приложение для отладки, рассылает по UDP на широковещательный адрес
-trik-sharp - событийная библиотека для работы с TRIK 
 
-2) Подробнее об Interpretator
 Interpretator состоит из AsyncTcpServ, AsyncUdpServ, logOutput, Server, Interpretator, trik-sharp
 trik-sharp - см. выше
 AsyncTcpServ - асинхронный TCP сервер, по принятию сообщений генерирует события,
