@@ -11,6 +11,12 @@ Server - контролирует работу TCP и UDP, выключает UDP как только установленно со
 Interpretator - интерпретирует полученные сообщения.
 logOutput - отладочный вывод.
 
+Binary - бинарники Interpretator
+
+Interpretator(alternative version) - тот же функционал, но написано с использованием mailboxprocessor.
+
+
+
 
 Алгоритм работы в целом следующий:
 Поднимается UDP и TCP сервер, по UDP ждёт запроса на отправку mac адресса и IP текущего
