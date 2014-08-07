@@ -20,6 +20,8 @@ type Server(?UDPip, ?UDPport, ?TCPport) =
     let obs = obs_src.Publish
     let obsNext = obs_src.Trigger
 
+    let stopMachine = Array.zeroCreate 4
+
 
     let handleRequest (req: byte[]) = 
         let handeledRequest = Array.map sbyte req.[0..3]
@@ -44,11 +46,13 @@ type Server(?UDPip, ?UDPport, ?TCPport) =
 
         MailboxProcessor.Start (fun inbox ->   
             let UDPSendMacAndIp() =
+                debugWrite"Sending...."
                 let NIC = NetworkInterface.GetAllNetworkInterfaces().[1]
                 let mac = NIC.GetPhysicalAddress().GetAddressBytes()
                 let ip = Dns.GetHostAddresses(Dns.GetHostName()).[0].GetAddressBytes()
                 let macAndIp = Array.append mac ip
                 (!UDPserver).Value.Send(macAndIp, macAndIp.Length, senderEndPoint) |> ignore
+                debugWrite"Sended!"
 
             let rec UDPrecieveRequest() = 
                 async { debugWrite "UDP waiting message..."
@@ -68,12 +72,17 @@ type Server(?UDPip, ?UDPport, ?TCPport) =
                             if count <> 0
                             then messageBuf |> handleRequest
                                  return! TCPrecieve()
-                            else inbox.Post StopTCP
+                            else 
+                                 stopMachine |> handleRequest
+                                 inbox.Post StopTCP
+                                 inbox.Post StartUDP
                                  inbox.Post StartTCP
                         with 
                         |_ -> 
                             debugWrite "excpetion in TCPrecieve"
+                            stopMachine |> handleRequest
                             inbox.Post StopTCP
+                            inbox.Post StartUDP
                             inbox.Post StartTCP
                             }
             let rec handler() =
@@ -86,7 +95,11 @@ type Server(?UDPip, ?UDPport, ?TCPport) =
                             TCPserver := Some (new TcpListener( (!TCPip).Value, TCPport))
                             (!TCPserver).Value.Start()
                             debugWrite"TCP Started"
-                            TCPreciever := Some ((!TCPserver).Value.AcceptTcpClient() )
+                            try
+                                TCPreciever := Some ((!TCPserver).Value.AcceptTcpClient() )
+                            with
+                            | _ as b -> debugWrite"exception in AcceptTcpClient() %A " b
+                                        return! handler()
                             debugWrite"connection established"
                             inbox.Post StopUDP
                             Async.Start (TCPrecieve())
@@ -99,7 +112,8 @@ type Server(?UDPip, ?UDPport, ?TCPport) =
                             TCPserver := None
                             TCPreciever := None
                             debugWrite "TCP Stoped"
-                            inbox.Post StartUDP
+                            debugWrite"inbox.Post StartUDP"
+                            //inbox.Post StartUDP
                             return! handler()
                         | StartUDP ->
                             debugWrite "UDP Starting..."

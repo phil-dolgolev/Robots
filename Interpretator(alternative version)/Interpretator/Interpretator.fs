@@ -63,7 +63,7 @@ module interpret =
         try
 // при расширении конфига возможно стоит переделать, так же довольно опасное место, ошибки никак не обрабатываются
 
-            let config = File.ReadLines("/home/root/interpretator/config.txt")
+            let config = File.ReadLines("/home/root/Interpretator/config.txt") 
             let i = config.GetEnumerator()
             i.MoveNext() |> ignore
             let UDPIP = i.Current
